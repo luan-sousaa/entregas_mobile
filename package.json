@@ -1,0 +1,22 @@
+{
+  "name": "mobile_cli",
+  "version": "1.0.0",
+  "description": "CLI com Drizzle ORM + SQLite para UF, Cidade e Região",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.6.0",
+    "drizzle-orm": "^0.30.10"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.10",
+    "@types/node": "^20.14.0",
+    "drizzle-kit": "^0.21.4",
+    "tsx": "^4.15.7",
+    "typescript": "^5.4.5"
+  }
+}

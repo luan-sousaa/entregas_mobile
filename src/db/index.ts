@@ -12,20 +12,20 @@ export const db = drizzle(sqlite, { schema });
 // Bootstrap schema on first run — no migration step needed
 sqlite.exec(`
   CREATE TABLE IF NOT EXISTS uf (
-    id    TEXT PRIMARY KEY,
+    id    INTEGER PRIMARY KEY AUTOINCREMENT,
     nome  TEXT NOT NULL,
     sigla TEXT NOT NULL UNIQUE
   );
 
   CREATE TABLE IF NOT EXISTS cidade (
-    id    TEXT PRIMARY KEY,
+    id    INTEGER PRIMARY KEY AUTOINCREMENT,
     nome  TEXT NOT NULL,
-    uf_id TEXT NOT NULL REFERENCES uf(id) ON DELETE CASCADE
+    uf_id INTEGER NOT NULL REFERENCES uf(id) ON DELETE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS regiao (
-    id        TEXT PRIMARY KEY,
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
     nome      TEXT NOT NULL,
-    cidade_id TEXT NOT NULL REFERENCES cidade(id) ON DELETE CASCADE
+    cidade_id INTEGER NOT NULL REFERENCES cidade(id) ON DELETE CASCADE
   );
 `);

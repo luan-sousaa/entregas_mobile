@@ -1,12 +1,11 @@
 import { eq } from 'drizzle-orm';
-import { randomUUID } from 'crypto';
 import { db } from '../db/index.js';
-import { regiao, cidade, uf, type NewRegiao, type Regiao } from '../db/schema.js';
+import { regiao, cidade, uf } from '../db/schema.js';
 
 export type RegiaoRelacional = {
-  id:          string;
+  id:          number;
   nome:        string;
-  cidade_id:   string;
+  cidade_id:   number;
   cidade_nome: string;
   uf_sigla:    string;
   label:       string;
@@ -32,16 +31,14 @@ export function listRegioes(): RegiaoRelacional[] {
   }));
 }
 
-export function createRegiao(nome: string, cidade_id: string): Regiao {
-  const newRegiao: NewRegiao = { id: randomUUID(), nome, cidade_id };
-  db.insert(regiao).values(newRegiao).run();
-  return newRegiao as Regiao;
+export function createRegiao(nome: string, cidade_id: number): void {
+  db.insert(regiao).values({ nome, cidade_id }).run();
 }
 
-export function updateRegiao(id: string, nome: string, cidade_id: string): void {
+export function updateRegiao(id: number, nome: string, cidade_id: number): void {
   db.update(regiao).set({ nome, cidade_id }).where(eq(regiao.id, id)).run();
 }
 
-export function deleteRegiao(id: string): void {
+export function deleteRegiao(id: number): void {
   db.delete(regiao).where(eq(regiao.id, id)).run();
 }

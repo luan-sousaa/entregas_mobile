@@ -1,7 +1,6 @@
 import { eq } from 'drizzle-orm';
-import { randomUUID } from 'crypto';
 import { db } from '../db/index.js';
-import { cidade, uf, type NewCidade, type Cidade } from '../db/schema.js';
+import { cidade, uf, type Cidade } from '../db/schema.js';
 
 export type CidadeComUf = Cidade & { uf_sigla: string; uf_nome: string };
 
@@ -19,16 +18,14 @@ export function listCidades(): CidadeComUf[] {
     .all();
 }
 
-export function createCidade(nome: string, uf_id: string): Cidade {
-  const newCidade: NewCidade = { id: randomUUID(), nome, uf_id };
-  db.insert(cidade).values(newCidade).run();
-  return newCidade as Cidade;
+export function createCidade(nome: string, uf_id: number): void {
+  db.insert(cidade).values({ nome, uf_id }).run();
 }
 
-export function updateCidade(id: string, nome: string, uf_id: string): void {
+export function updateCidade(id: number, nome: string, uf_id: number): void {
   db.update(cidade).set({ nome, uf_id }).where(eq(cidade.id, id)).run();
 }
 
-export function deleteCidade(id: string): void {
+export function deleteCidade(id: number): void {
   db.delete(cidade).where(eq(cidade.id, id)).run();
 }

@@ -33,8 +33,8 @@ export async function ufMenu(): Promise<void> {
         const nome  = await ask('Nome da UF: ');
         const sigla = await ask('Sigla (ex: SP): ');
         if (!nome || !sigla) { console.log('Campos obrigatórios.'); break; }
-        const created = createUf(nome, sigla);
-        console.log(`UF criada: [${created.sigla}] ${created.nome}`);
+        createUf(nome, sigla);
+        console.log(`UF criada: [${sigla.toUpperCase()}] ${nome}`);
         break;
       }
 

@@ -38,8 +38,8 @@ export async function cidadeMenu(): Promise<void> {
         if (ufIdx < 0 || ufIdx >= ufs.length) { console.log('Número inválido.'); break; }
         const nome = await ask('Nome da cidade: ');
         if (!nome) { console.log('Nome obrigatório.'); break; }
-        const created = createCidade(nome, ufs[ufIdx].id);
-        console.log(`Cidade criada: [${ufs[ufIdx].sigla}] ${created.nome}`);
+        createCidade(nome, ufs[ufIdx].id);
+        console.log(`Cidade criada: [${ufs[ufIdx].sigla}] ${nome}`);
         break;
       }
 

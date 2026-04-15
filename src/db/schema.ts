@@ -1,23 +1,23 @@
-import { sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
 export const uf = sqliteTable('uf', {
-  id:    text('id').primaryKey(),
+  id:    integer('id').primaryKey({ autoIncrement: true }),
   nome:  text('nome').notNull(),
   sigla: text('sigla').notNull().unique(),
 });
 
 export const cidade = sqliteTable('cidade', {
-  id:    text('id').primaryKey(),
+  id:    integer('id').primaryKey({ autoIncrement: true }),
   nome:  text('nome').notNull(),
-  uf_id: text('uf_id')
+  uf_id: integer('uf_id')
     .notNull()
     .references(() => uf.id, { onDelete: 'cascade' }),
 });
 
 export const regiao = sqliteTable('regiao', {
-  id:        text('id').primaryKey(),
+  id:        integer('id').primaryKey({ autoIncrement: true }),
   nome:      text('nome').notNull(),
-  cidade_id: text('cidade_id')
+  cidade_id: integer('cidade_id')
     .notNull()
     .references(() => cidade.id, { onDelete: 'cascade' }),
 });
